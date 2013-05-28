@@ -8,8 +8,14 @@
 </head>
 <body>
 
-<div onclick="$('#container').instaPicker().open();"></div>
-<div id="container"></div>
+<div id="btn">INSTAGRAM</div>
+<div id="imageContainer"></div>
 
+
+<script type="text/javascript">
+    $(document).instaPicker();
+    $(document).instaPicker.init( $("#btn"), $("#imageContainer"),"157ba49ad4cb40babb77bd7407eae35a", "http://localhost:8888/instagram-photo-picker/demo/" );
+
+</script>
 </body>
 </html>
