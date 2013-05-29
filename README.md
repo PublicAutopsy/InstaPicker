@@ -13,8 +13,8 @@ $(document).instaPicker();
 $(document).instaPicker.init( $("#YourInstagramButton"), $("#TheContainerWhereTheImagesWillGo"),"Instagram Client Id", "http://your/instagram/callback/uri" );
 ```
 
-```bash
-::\`--._,'.::.`._.--'/::::   
+```
+::\`--._,'.::.`._.--'/::::  
 ::::.  ` __::__ '  .::::::  
 ::::::-:.`'..`'.:-::::::::  
 ::::::::\ `--' /::::::::::  
