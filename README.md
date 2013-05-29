@@ -4,7 +4,8 @@ InstaPicker
 <hr />
 
 <h5>Installation</h5>
-Install jQuery 1,9 or higher on the page then link jquery.instaPicker.js in the page anywhere under jQuery.
+Install jQuery 1,9 or higher on the page  
+then link jquery.instaPicker.js in the page anywhere under jQuery.
 
 At the bottom of the page (or in your deferred script) instantiate the plugin (demonstrated in the demo page)  
 ```javascript   
@@ -12,11 +13,11 @@ $(document).instaPicker();
 $(document).instaPicker.init( $("#YourInstagramButton"), $("#TheContainerWhereTheImagesWillGo"),"Instagram Client Id", "http://your/instagram/callback/uri" );
 ```
 
-
-
-::\`--._,'.::.`._.--'/::::  
+```bash
+::\`--._,'.::.`._.--'/::::   
 ::::.  ` __::__ '  .::::::  
 ::::::-:.`'..`'.:-::::::::  
 ::::::::\ `--' /::::::::::  
 ::::::::::::::::::::::::::  
 :::Use The Source Luke::::  
+```
