@@ -76,8 +76,9 @@ $.fn.instaPicker = function () {
                 $(".instaPicked").each(function(index, value){
                     selectedImages.selected.push({element: $(value), hiRes: $(value).data("highres") });
                     console.log(selectedImages);
-                    closeLightBox();
                 })
+                closeLightBox(selectedImages);
+
 
             });
 
@@ -92,11 +93,14 @@ $.fn.instaPicker = function () {
 
         display(res);
     }
-    function closeLightBox(){
+    function closeLightBox(selected){
         $("#lightbox").fadeOut();
         $("#lightbox").remove();
-        for (var i = 0; i < selectedImages.selected.length; i++ ){
-            selectedImages.selected[i].element.clone().appendTo(imageHolder);
+
+        console.log(selected.selected.length);
+
+        for (var i = 0; i < selected.selected.length; i++ ){
+            selected.selected[i ].element.clone().appendTo(imageHolder);
         }
     }
 
