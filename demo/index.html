@@ -8,13 +8,18 @@
 </head>
 <body>
 
-<div id="btn">INSTAGRAM</div>
-<div id="imageContainer"></div>
-
+<div id="btn1">INSTAGRAM</div>
+<div id="imageContainer1"></div>
+<div id="btn2">INSTAGRAM</div>
+<div id="imageContainer2"></div>
 
 <script type="text/javascript">
-    $(document).instaPicker();
-    $(document).instaPicker.init( $("#btn"), $("#imageContainer"),"157ba49ad4cb40babb77bd7407eae35a", "http://localhost:8888/instagram-photo-picker/demo/" );
+    $(document).instapicker();
+    $(document).instapicker.init( $("#btn1"), $("#imageContainer1"),"157ba49ad4cb40babb77bd7407eae35a", "http://localhost:8888/instagram-photo-picker/demo/" );
+
+    $("body").instapicker();
+    $("body").instapicker.init( $("#btn2"), $("#imageContainer2"),"157ba49ad4cb40babb77bd7407eae35a", "http://localhost:8888/instagram-photo-picker/demo/" );
+
 
 </script>
 </body>
