@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../src/jquery-1.9.1.min.js"></script>
+  
+</head>
+<body>
+
+<script type="text/javascript">
+ $(function(){
+
+ 	var hash = window.location.hash.replace('#', '').split('&');
+    var myArray = new Array();
+    for (var x = 0; x < hash.length; x++) {
+        var itemArray = hash[x].split('=');
+        var item = new Object();
+        item.key = itemArray[0];
+        item.value = itemArray[1];
+        myArray.push(item);
+    }
+
+    for (var x = 0; x < myArray.length; x++)
+        console.log(myArray[x].key + ' is ' + myArray[x].value);
+
+
+
+ 	window.opener.$.fn.instaAuth.successfulAuth(myArray[0].value);
+ 	window.close();
+ });
+
+ 	
+ 	
+
+</script>
+</body>
+</html>

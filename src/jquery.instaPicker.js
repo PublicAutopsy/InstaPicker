@@ -1,31 +1,36 @@
 (function($){
-    $.fn.instapicker = function () {
+    $.fn.instapicker = function (CLIENTID, ACCESSTOKEN, UID, INITCALLBACK) {
         console.log(this);
-        var root = this;
-        var imageHolder;
-        var accessToken;
-        var UID;
+        var imageHolder = this;
+        var accessToken = ACCESSTOKEN;
+        var UID = UID;
         var selectedImages = {selected: []};
-        function initializer(){
-            accessToken = window.location.hash.split("=")[1];
-            if (accessToken != undefined) {
-                var idUrl = "https://api.instagram.com/v1/users/self?access_token=" + accessToken;
-
-                $.ajax({
-                    url: idUrl,
-                    dataType: 'jsonp',
-                    success: function (results) {
-                        console.log(results)
-                        UID = results.data.id;
-                        console.log(UID);
-                    }
-                });
-
-            } else {
-                console.log("Not logged in");
-            }
+        var btn = this;
+        var onInit = INITCALLBACK;
+        open();
+        function open(){
+            selectedImages = {selected: []};
+             var photoUrl = "https://api.instagram.com/v1/users/" + UID + "/media/recent/?access_token=" + accessToken;
+            getPhotos(photoUrl);
         }
 
+        function close(){
+            var container = $(this);
+
+            container.fadeOut(function () {
+                container.html("");
+            });
+        }
+        
+        function getPhotos(photoUrl) {
+            $.ajax({
+                url: photoUrl,
+                dataType: 'jsonp',
+                success: function (results) {
+                    openLightBox(results);
+                }
+            });
+        }
         function openLightBox(res){
             lightboxStyle = {
                 "backgroundColor" : "#000",
@@ -79,8 +84,10 @@
                     $(".instaPicked").each(function(index, value){
                         selectedImages.selected.push({element: $(value), hiRes: $(value).data("highres") });
                     })
-                    closeLightBox(selectedImages);
 
+                    closeLightBox(selectedImages);
+                     selectedImages = {selected: []};
+                     $(".instaPicked").removeClass("instaPicked");
 
                 });
 
@@ -88,14 +95,19 @@
 
             function display(photos) {
                 console.log(photos);
-                for (x = 0; x < photos.data.length; x++) {
+                var MyPhotos = photos;
+                for (x = 0; x < MyPhotos.data.length; x++) {
                     $("#instagram-photos").append("<img class='instagram-picture' width='100' height='100' data-highRes='" + photos.data[x].images.standard_resolution.url + "' src='" + photos.data[x].images.low_resolution.url + "' >")
+                    if ( x == MyPhotos.data.length - 1){
+                        
+                    }
                 }
             }
 
             display(res);
         }
         function closeLightBox(selected){
+            $("")
             $("#lightbox").fadeOut();
             $("#lightbox").remove();
 
@@ -108,49 +120,9 @@
         }
 
 
-        $.fn.instapicker.init = function (BTN, HOLDER, CLIENTID, REDIRECTURI) {
-            initializer();
+        
+        
 
-            var btn = BTN;
-            imageHolder = HOLDER;
-            var loginUrl = "https://instagram.com/oauth/authorize/?client_id=" + CLIENTID + "&redirect_uri=" + REDIRECTURI + "&response_type=token";
-
-            btn.click(function () {
-                if (accessToken != undefined) {
-                    root.eq(0).instapicker.open();
-                } else {
-                    window.location.href= loginUrl;
-                }
-
-            })
-        }
-
-        $.fn.instapicker.open = function () {
-
-            var photoUrl = "https://api.instagram.com/v1/users/" + UID + "/media/recent/?access_token=" + accessToken;
-
-            function getPhotos() {
-                $.ajax({
-                    url: photoUrl,
-                    dataType: 'jsonp',
-                    success: function (results) {
-                        openLightBox(results);
-                    }
-                });
-            }
-
-            getPhotos();
-
-        }
-
-        $.fn.instapicker.close = function () {
-            var container = $(this);
-
-            container.fadeOut(function () {
-                container.html("");
-            });
-
-        }
 
     }
 

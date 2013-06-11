@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title></title>
     <script type="text/javascript" src="../src/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../src/jquery.instaAuth.js"></script>
     <script type="text/javascript" src="../src/jquery.instaPicker.js"></script>
 </head>
 <body>
@@ -14,11 +15,55 @@
 <div id="imageContainer2"></div>
 
 <script type="text/javascript">
-    $(document).instapicker();
-    $(document).instapicker.init( $("#btn1"), $("#imageContainer1"),"157ba49ad4cb40babb77bd7407eae35a", "http://localhost:8888/instagram-photo-picker/demo/" );
 
-    $("body").instapicker();
-    $("body").instapicker.init( $("#btn2"), $("#imageContainer2"),"157ba49ad4cb40babb77bd7407eae35a", "http://localhost:8888/instagram-photo-picker/demo/" );
+	//change to auth plugin
+	//change instapicker to require accesstoken and client id.
+
+
+	var instaClientId = "157ba49ad4cb40babb77bd7407eae35a"; 
+	var authRedirect = window.location.origin+window.location.pathname+"auth.html"
+	initInstaAuth();
+
+	function initInstaAuth(){
+		$("#btn1").click(function(){
+			$(window).instaAuth(instaClientId, authRedirect, 
+				function(){
+					initInstaPicker();
+					instaPicker1();
+				}
+			);
+		});
+
+		$("#btn2").click(function(){
+			$(window).instaAuth(instaClientId, authRedirect, 
+				function(){
+					initInstaPicker();
+					instaPicker2();
+				}
+			);
+		});
+	}
+
+	function initInstaPicker(){
+
+		$("#btn1").unbind();
+		$("#btn2").unbind();
+		
+		$("#btn1").click(function(){
+			instaPicker1();
+		});
+		$("#btn2").click(function(){
+			instaPicker2();
+		});
+	}
+
+	function instaPicker1(){
+		$('#imageContainer1').instapicker(instaClientId , $(window).instaAuth.getAccessToken(), $(window).instaAuth.getUserId());
+	}
+	function instaPicker2(){
+		$('#imageContainer2').instapicker(instaClientId , $(window).instaAuth.getAccessToken(), $(window).instaAuth.getUserId());
+	}
+	
 
 
 </script>
